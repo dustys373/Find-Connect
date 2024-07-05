@@ -1,0 +1,27 @@
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
+
+const Login = () => (
+  <Formik
+    initialValues={{ email: '', password: '' }}
+    validationSchema={LoginSchema}
+    onSubmit={(values, { setSubmitting }) => {
+      // Handle login logic
+    }}
+  >
+    {({ errors, touched }) => (
+      <Form>
+        <Field name="email" type="email" />
+        {errors.email && touched.email ? <div>{errors.email}</div> : null}
+        <Field name="password" type="password" />
+        {errors.password && touched.password ? <div>{errors.password}</div> : null}
+        <button type="submit">Login</button>
+      </Form>
+    )}
+  </Formik>
+);
